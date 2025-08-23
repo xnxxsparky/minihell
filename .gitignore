@@ -1,0 +1,14 @@
+build
+.cache
+minishell
+compile_commands.json
+libft/build
+*.out
+libft/*.a
+cloc*
+node_modules
+package.json
+package-lock.json
+lexer
+todo
+minish*_test*
