@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aaaaaaaaaaaaaa.c                                   :+:      :+:    :+:   */
+/*   lexer_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 23:16:04 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/23 22:10:59 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/24 19:18:16 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	lexer_get_word(t_lexer *lexer)
 			else if (lexer->quote_state == QUOTES_NONE)
 				lexer->quote_state = DOUBLE_QUOTES;
 		}
-		if (cond_break_wd(c, lexer) == true)
+		if (cond_break_wd(c, lexer))
 			break ;
 		lexer_advance(lexer, 1);
 	}

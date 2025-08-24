@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 00:01:58 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/23 22:25:45 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/24 19:33:29 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	main(int argc, char **argv, char **env)
 			" MotherFucker\n");
 		return (21);
 	}
-	ft_fprintf(1, "\e[1;1H\e[2J");
+// 	ft_fprintf(1, "\e[1;1H\e[2J");
 	ft_bzero(&shel, sizeof(t_shell));
 	sh_init(&shel, env);
 	while (1)
