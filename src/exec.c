@@ -6,11 +6,10 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 01:58:46 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/24 19:47:36 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/27 22:14:13 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
 #include "minihell.h"
 
 void	child_employed(t_shell *shel)
@@ -62,10 +61,7 @@ void	exec_solo(t_shell *shel)
 				else if (WIFSIGNALED(status))
 					shel->retcode = 128 + WTERMSIG(status);
 			}
-			if (shel->cmd_dec[0].fd_in >= 3)
-				close(shel->cmd_dec[0].fd_in);
-			if (shel->cmd_dec[0].fd_out >= 3)
-				close(shel->cmd_dec[0].fd_out);
+			close_in_out_solo(shel);
 		}
 	}
 }
@@ -134,7 +130,7 @@ void	children(t_shell *shel, int pipefd[2], int index, int argc)
 		dup2(out, STDOUT_FILENO);
 	close_all(curr, pipefd, in, out);
 	close_all_fds();
-	if (!apply_builtins(shel, index))
+	if (!apply_builtins_forked(shel, index))
 		fauttoutfree_solo(shel, false, index, (in <= 3 || out <= 3));
 	if (shel->cmd_dec[index].path && in >= 0 && out >= 0)
 		execve(curr.path, curr.cmd, shel->env_ar);
@@ -158,6 +154,7 @@ void	pipex(t_shell *shel, int pipefd[2], int i, int count)
 	if (need_pipe && pipe(pipefd) == -1)
 		perror("pipe");
 	pid = fork();
+	shel->pids[i] = pid;
 	if (pid == -1)
 		perror("fork");
 	if (!pid)
@@ -180,19 +177,24 @@ void	exec_plusplus(t_shell *shel, int count)
 {
 	static int	pidfd[2] = {-1, -1};
 	int			i;
+	int			j;
 	int			status;
 
 	i = -1;
 	while (++i < count)
 		pipex(shel, pidfd, i, count);
-	while (waitpid(-1, &status, 0) > 0)
+	j = -1;
+	while (++j < count)
 	{
-		if (WIFEXITED(status))
-			shel->retcode = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			shel->retcode = 128 + WTERMSIG(status);
+		while (waitpid(shel->pids[j], &status, 0) > 0)
+		{
+			if (WIFEXITED(status))
+				shel->retcode = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				shel->retcode = 128 + WTERMSIG(status);
+		}
+		if (pidfd[READ_SIDE] >= 3)
+			close(pidfd[READ_SIDE]);
+		close_all_fds();
 	}
-	if (pidfd[READ_SIDE] >= 3)
-		close(pidfd[READ_SIDE]);
-	close_all_fds();
 }

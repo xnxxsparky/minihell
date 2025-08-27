@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:14:28 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/24 20:28:38 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:53:24 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,46 +62,6 @@ void	close_all(t_cmd curr, int pipefd[2], int in, int out)
 		close(out);
 }
 
-void	handle_dup(int arr[2], bool std_dup)
-{
-	if (!arr[0] && !arr[1])
-	{
-		arr[0] = dup(STDIN_FILENO);
-		arr[1] = dup(STDOUT_FILENO);
-		signal(SIGPIPE, SIG_IGN);
-	}
-	if (std_dup)
-	{
-		dup2(arr[0], STDIN_FILENO);
-		dup2(arr[1], STDOUT_FILENO);
-		close_all_fds();
-		signal(SIGPIPE, SIG_DFL);
-	}
-	return ;
-}
-
-void	handle_pipe(t_shell *shel, int *in, int *out)
-{
-	(*in) = 0;
-	(*out) = 0;
-	if (shel->cmd_dec[0].fd_in)
-		(*in) = shel->cmd_dec[0].fd_in;
-	if (shel->cmd_dec[0].fd_out)
-		(*out) = shel->cmd_dec[0].fd_out;
-	if ((*in) >= 3)
-	{
-		dup2((*in), STDIN_FILENO);
-		close(shel->cmd_dec[0].fd_in);
-		close((*in));
-	}
-	if ((*out) >= 3)
-	{
-		dup2((*out), STDOUT_FILENO);
-		close(shel->cmd_dec[0].fd_out);
-		close((*out));
-	}
-}
-
 int	apply_builtins(t_shell *shel, int index)
 {
 	static t_op	funcs[8] = {
@@ -116,11 +76,11 @@ int	apply_builtins(t_shell *shel, int index)
 	int			out;
 
 	i = -1;
-	handle_dup(arr, false);
 	while (funcs[++i].name)
 	{
 		if (ft_strcmp(shel->cmd_dec[index].cmd[0], funcs[i].name) == 0)
 		{
+			handle_dup(arr, false);
 			handle_pipe(shel, &in, &out);
 			funcs[i].func(shel, index);
 			handle_dup(arr, true);

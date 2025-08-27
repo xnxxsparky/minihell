@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 03:04:29 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/23 22:26:13 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:38:46 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_shell
 	char		*prompt;
 	char		*cmd_user;	//commande brute de l'user
 	int			retcode;
+	int			*pids;
 }	t_shell;
 
 typedef void					(*t_op_function)(t_shell *shel, int index);
@@ -176,9 +177,11 @@ void	redir_here_doc(t_cmd *cmd_final, t_token **cur, t_shell *shel);
 
 void	free_free(t_shell *shel);
 
-void	maintenantfauttoutbuild(t_shell *shel, t_cmd **cmd_dec);
+void	buid_t_cmd(t_shell *shel, t_cmd **cmd_dec);
 
 int		apply_builtins(t_shell *shel, int index);
+
+int		apply_builtins_forked(t_shell *shel, int index);
 
 void	fauttoutfree_solo(t_shell *shel, bool need_exit, int index, bool redir);
 
@@ -199,4 +202,10 @@ void	hist_adder(t_cmd *cmd_dec, int count, char *src);
 void	exec_solo(t_shell *shel);
 
 void	exec_plusplus(t_shell *shel, int count);
+
+void	handle_dup(int arr[2], bool std_dup);
+
+void	handle_pipe(t_shell *shel, int *in, int *out);
+
+void	close_in_out_solo(t_shell *shel);
 #endif

@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:11:59 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/23 22:12:34 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:12:40 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	cmd_alloc(t_cmd **cmd_final, t_token *cmd)
 	*cmd_final = final;
 }
 
-void	maintenantfauttoutbuild(t_shell *shel, t_cmd **cmd_dec)
+void	buid_t_cmd(t_shell *shel, t_cmd **cmd_dec)
 {
 	t_cmd	*cmd_final;
 	t_token	*cur;

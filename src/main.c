@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 00:01:58 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/24 19:33:29 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:12:40 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	cmd_getter(t_shell *shel)
 	handle_input(shel);
 	if (g_sig || lexer_handler(shel) != MS_PARSER_OKK)
 		return ;
-	maintenantfauttoutbuild(shel, &(shel->cmd_dec));
+	buid_t_cmd(shel, &(shel->cmd_dec));
 	if (!shel->cmd_dec || !shel->cmd_dec->cmd[0])
 	{
 		shel->retcode = 130;

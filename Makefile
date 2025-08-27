@@ -6,7 +6,7 @@
 #    By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 01:17:51 by bcausseq          #+#    #+#              #
-#    Updated: 2025/08/23 22:28:14 by bcausseq         ###   ########.fr        #
+#    Updated: 2025/08/27 18:39:32 by bcausseq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC 			= cc
@@ -23,7 +23,7 @@ LIBFT_LIB	= $(LIBFT)/libft.a
 HEADER		= includes
 
 SRCS		= src/main.c\
-			  src/parser.c\
+			  src/prompt_handle.c\
 			  src/exec.c\
 			  src/exit.c\
 			  src/valid_line.c\
@@ -57,7 +57,8 @@ SRCS		= src/main.c\
 			  src/build.c\
 			  src/child_signals.c\
 			  src/child_utils.c\
-			  src/exec_func.c
+			  src/exec_func.c\
+			  src/builtin_handle.c
 
 OBJ_DIR		= build
 

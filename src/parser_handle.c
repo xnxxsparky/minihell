@@ -6,10 +6,11 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 23:55:38 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/16 08:10:30 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:41:42 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "includes/libft.h"
 #include "lexer.h"
 #include "minihell.h"
 
@@ -46,10 +47,13 @@ int	parser_pipe(t_token *cur, bool *is_fst_cmd)
 	t_token	*next;
 
 	next = cur->next;
-	if (next && next->type != MST_WORD && next->type != MST_REDIR)
+	if ((next && next->type != MST_WORD && next->type != MST_REDIR) || !next)
 	{
-		ft_fprintf(2, "minihell: syntax error near unexpected token `%s'\n",
-			next->token);
+		if (!next)
+			ft_fprintf(2, "minihell: syntax error: unexpected end of file\n");
+		else
+			ft_fprintf(2, "minihell: syntax error near unexpected token `%s'\n",
+				next->token);
 		return (MS_PARSER_ERR);
 	}
 	*is_fst_cmd = true;
@@ -58,12 +62,24 @@ int	parser_pipe(t_token *cur, bool *is_fst_cmd)
 
 int	parser_frst(t_token *cur, bool *is_fst_cmd)
 {
+	t_token	*next;
+
 	if (cur->type != MST_WORD && cur->type != MST_REDIR
 		&& cur->type != MST_EXPAND)
 	{
 		ft_fprintf(2, "minihell: syntax error near unexpected token `%s'\n",
 			cur->token);
 		return (MS_PARSER_ERR);
+	}
+	if (cur->type == MST_REDIR)
+	{
+		next = cur->next;
+		if (!next->next || next->next->type != MST_WORD)
+		{
+			ft_fprintf(2, "minihell: syntax error near unexpected token"
+				" `newline'\n");
+			return (MS_PARSER_ERR);
+		}
 	}
 	*is_fst_cmd = false;
 	return (MS_PARSER_OKK);
