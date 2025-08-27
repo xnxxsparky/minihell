@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 01:58:46 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/27 22:14:13 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/28 00:12:05 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,14 @@ void	exec_solo(t_shell *shel)
 	if (apply_builtins(shel, 0) == 1)
 	{
 		pid = fork();
+		shel->pids[0] = pid;
 		if (pid == -1)
 			perror("fork");
 		if (!pid)
 			child_employed(shel);
 		else
 		{
-			while (waitpid(-1, &status, 0) > 0)
+			while (waitpid(shel->pids[0], &status, 0) > 0)
 			{
 				if (WIFEXITED(status))
 					shel->retcode = WEXITSTATUS(status);
@@ -136,14 +137,6 @@ void	children(t_shell *shel, int pipefd[2], int index, int argc)
 		execve(curr.path, curr.cmd, shel->env_ar);
 	fauttoutfree_solo(shel, true, index, (in <= 3 || out <= 3));
 }
-// 	if (shel->files[0] >= 0)
-// 		close(shel->files[0]);
-// 	if (shel->files[1] >= 0)
-// 		close(shel->files[1]);
-// 	if ((ft_strcmp(curr.cmd[0], "NULL") == 0) || in < 0 || out < 0)
-// 		fauttoutfree_solo(shel, strerror(2), argc);
-// 	if (execve(curr.cmd[0], curr.cmd, curr.env) == -1)
-// 		free_all(shel, "Execve Failed...", argc);
 
 void	pipex(t_shell *shel, int pipefd[2], int i, int count)
 {
@@ -171,7 +164,6 @@ void	pipex(t_shell *shel, int pipefd[2], int i, int count)
 			close(pipefd[READ_SIDE]);
 	}
 }
-// 	close(pipefd[READ_SIDE]);
 
 void	exec_plusplus(t_shell *shel, int count)
 {
