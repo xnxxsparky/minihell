@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 04:31:17 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/16 04:59:33 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/28 19:16:12 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,39 +26,62 @@ void	free_cmd_dec(t_cmd **cmd_dec)
 	free(*cmd_dec);
 }
 
-void	full_free(t_shell *shel, bool *ret_need, int *ret, int index)
+void	closed(t_shell *shel, int index)
 {
-	if (shel->cmd_dec[index].cmd[1]
-		&& ft_isdigit_while(shel->cmd_dec[index].cmd[1]))
+	if (!shel->cmd_dec[index + 1].cmd)
 	{
-		ft_fprintf(2, "minihell: exit: %s: numeric argument required\n",
-			shel->cmd_dec[index].cmd[1]);
-		(*ret_need) = true;
-		(*ret) = 2;
+		close(3);
+		close(4);
 	}
-	free_free(shel);
+	return ;
 }
 
 void	ft_exit(t_shell *shel, int index)
 {
-	int		ret;
-	bool	ret_need;
+	int			ret;
+	const char	*code;
 
-	ret_need = false;
-	if (!ft_isdigit_while(shel->cmd_dec[index].cmd[1])
-		&& shel->cmd_dec[index].cmd[2])
+	code = shel->cmd_dec[index].cmd[1];
+	if (code && shel->cmd_dec[index].cmd[2])
 	{
 		ft_fprintf(2, "minihell: exit: too many arguments\n");
 		shel->retcode = 1;
 		return ;
 	}
-	else if (shel->cmd_dec[index].cmd[1])
+	if (!code)
+		ret = shel->retcode;
+	else
+		ret = ft_atoll(code);
+	if (errno == ERANGE)
 	{
-		ret = ft_atoll(shel->cmd_dec[index].cmd[1]);
-		ret_need = true;
+		ft_fprintf(2, "minihell: exit: %s: numeric argument required\n", code);
+		ret = 2;
 	}
-	full_free(shel, &ret_need, &ret, index);
-	if (ret_need)
-		exit(ret);
-	exit(shel->retcode);
+	closed(shel, index);
+	free_free(shel);
+	exit(ret);
 }
+
+	/////////////////////////////
+
+// 	int		ret;
+// 	bool	ret_need;
+// 
+// 	ret_need = false;
+// 	if (!ft_isdigit_while(shel->cmd_dec[index].cmd[1])
+// 		&& shel->cmd_dec[index].cmd[2])
+// 	{
+// 		ft_fprintf(2, "minihell: exit: too many arguments\n");
+// 		shel->retcode = 1;
+// 		return ;
+// 	}
+// 	else if (shel->cmd_dec[index].cmd[1])
+// 	{
+// 		ret = ft_atoll(shel->cmd_dec[index].cmd[1]);
+// 		ret_need = true;
+// 	}
+// 	full_free(shel, &ret_need, &ret, index);
+// 	if (ret_need)
+// 		exit(ret);
+// 	exit(shel->retcode);
+// }

@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 20:23:07 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/24 19:35:11 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/28 19:17:01 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,9 @@ void	update_token(t_shell *shel, t_token **cmd)
 	is_delim = false;
 	while (cur)
 	{
-		if (!ft_strcmp(cur->token, "$") && is_delim)
+		if ((!ft_strncmp(cur->token, "$", 1)
+				|| !ft_strncmp(cur->token, "\'", 1)
+				|| !ft_strncmp(cur->token, "\"", 1)) && is_delim)
 			cur->type = MST_WORD;
 		else
 			update_xpd(shel, cmd, &cur);

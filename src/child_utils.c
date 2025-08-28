@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:14:28 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/27 21:53:24 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:27:04 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	hist_adder(t_cmd *cmd_dec, int count, char *src)
 			add = false;
 		if (cmd_dec[i].cmd[0] && ft_strcmp(cmd_dec[i].cmd[0], "exit") == 0)
 		{
+			if (cmd_dec[i + 1].cmd)
+				break ;
 			if (cmd_dec[i].fd_in)
 				ft_fprintf(cmd_dec[i].fd_in, "exit\n");
 			else

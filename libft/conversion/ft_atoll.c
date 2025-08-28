@@ -6,10 +6,11 @@
 /*   By: bcausseq <bcausseq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:35:15 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/12 21:23:03 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/28 19:02:51 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include "libft.h"
 
 // static bool	check_overflow(int digit, long long ret)
@@ -38,12 +39,14 @@ long long	ft_atoll(const char *nptr)
 			sign *= (-1);
 		i++;
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
+	while (nptr[i] && nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		if ((ret + (nptr[i] - '0') - ret) != (nptr[i] - '0'))
-			return (2);
-		ret = ret * 10 + (nptr[i] - '0');
-		i++;
+		if ((ret * 10 + (nptr[i] - '0')) < ret)
+		{
+			errno = ERANGE;
+			return (0);
+		}
+		ret = ret * 10 + (nptr[i++] - '0');
 	}
 	return (sign * ret);
 }
