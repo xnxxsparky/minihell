@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 20:23:07 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/28 19:17:01 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/01 17:36:14 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,26 @@ t_token	*update_list(t_token *del, t_token **cmd)
 	return (cur);
 }
 
+bool	only_dol(char *token)
+{
+	int	i;
+
+	i = 0;
+	while (token[i])
+	{
+		if (token[i] != '$')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 void	update_xpd(t_shell *shel, t_token **cmd, t_token **cur)
 {
 	t_states	old;
 
+	if (only_dol((*cur)->token))
+		return ;
 	if ((*cur) && ((*cur)->type == MST_WORD || (*cur)->type == MST_EXPAND))
 	{
 		replace(shel, (*cur)->token, &((*cur)->token));
@@ -106,6 +122,8 @@ void	update_token(t_shell *shel, t_token **cmd)
 			cur->type = MST_WORD;
 		else
 			update_xpd(shel, cmd, &cur);
+		if (!cur)
+			return ;
 		is_delim = !ft_strncmp(cur->token, "<<", 2);
 		cur = cur->next;
 	}

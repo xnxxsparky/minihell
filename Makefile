@@ -6,7 +6,7 @@
 #    By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 01:17:51 by bcausseq          #+#    #+#              #
-#    Updated: 2025/08/27 18:39:32 by bcausseq         ###   ########.fr        #
+#    Updated: 2025/09/01 21:11:03 by bcausseq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC 			= cc
@@ -55,7 +55,7 @@ SRCS		= src/main.c\
 			  src/token_utils.c\
 			  src/here_doc_signals.c\
 			  src/build.c\
-			  src/child_signals.c\
+			  src/child_signals_and_utils.c\
 			  src/child_utils.c\
 			  src/exec_func.c\
 			  src/builtin_handle.c
@@ -91,7 +91,7 @@ define show_header
 	@echo "╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝"
 	@echo "$(RESET)"
 	@echo "$(YELLOW)                    🔥 Rising from the depths of Hell 🔥$(RESET)"
-	@echo "$(PURPLE)                         by $(BOLD)bcausseq$(RESET)"
+	@echo "$(PURPLE)                         by $(BOLD)bcausseq.... &Co.$(RESET)"
 	@echo ""
 	@echo "$(CYAN)minihell: $(WHITE)Minishell Improves Nothing, It is a Hell Extention Level, Love it.$(RESET)"
 	@echo ""
@@ -146,6 +146,6 @@ moral:
 	@printf "$(BLUE)lumugot\nfparis\nkzhen-cl\npboucher\nmbirou\n$(RESET)"
 
 destitute:
-	@printf "$(RED)ypoulett\nllage\nrvitiell\nLe Staff\n$(RESET)"
+	@printf "$(RED)ypoulett\nllage\nrvitiell\nLe Staff\nNorminette\n$(RESET)"
 
 .PHONY: all clean fclean re credit destitute

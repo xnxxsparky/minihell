@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 01:58:46 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/28 00:12:05 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 00:09:10 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	child_employed(t_shell *shel)
 	int		in;
 	int		out;
 
+	reset_sig_child();
 	in = 0;
 	out = 0;
 	if (shel->cmd_dec[0].fd_in)
@@ -37,16 +38,16 @@ void	child_employed(t_shell *shel)
 	}
 	if (shel->cmd_dec[0].path && out >= 0 && in >= 0)
 		execve(shel->cmd_dec[0].path, shel->cmd_dec->cmd, shel->env_ar);
-	fauttoutfree_solo(shel, true, 0, (out < 0 || in < 0));
+	fauttoutfree_solo(shel, true, 0);
 }
 
 void	exec_solo(t_shell *shel)
 {
-	int		status;
 	pid_t	pid;
 
 	if (apply_builtins(shel, 0) == 1)
 	{
+		signal(SIGINT, SIG_IGN);
 		pid = fork();
 		shel->pids[0] = pid;
 		if (pid == -1)
@@ -55,64 +56,10 @@ void	exec_solo(t_shell *shel)
 			child_employed(shel);
 		else
 		{
-			while (waitpid(shel->pids[0], &status, 0) > 0)
-			{
-				if (WIFEXITED(status))
-					shel->retcode = WEXITSTATUS(status);
-				else if (WIFSIGNALED(status))
-					shel->retcode = 128 + WTERMSIG(status);
-			}
-			close_in_out_solo(shel);
+			waiting_solo(shel);
 		}
 	}
 }
-
-// void	children(t_shell *shel, int pidfd[3], int i, int count)
-// {
-// 	const t_cmd	curr = shel->cmd_dec[i];
-// 	int			in;
-// 	int			out;
-// 
-// 	in = pidfd[0];
-// 	out = 0;
-// 	if (pidfd[2])
-// 		in = pidfd[2];
-// 	if (shel->cmd_dec[i].fd_in)
-// 		in = shel->cmd_dec[i].fd_in;
-// 	if (i != count - 1)
-// 		out = pidfd[1];
-// 	if (shel->cmd_dec[i].fd_out)
-// 		out = shel->cmd_dec[i].fd_out;
-// 	if (out >= 3)
-// 		dup2(out, STDOUT_FILENO);
-// 	if (in >= 3)
-// 		dup2(in, STDIN_FILENO);
-// 	close_all(curr, pidfd, in, out);
-// 	if (!apply_builtins(shel, i))
-// 		fauttoutfree_solo(shel, false, i, (in <= 3 || out <= 3));
-// 	if (shel->cmd_dec[i].path && in >= 0 && out >= 0)
-// 		execve(curr.path, curr.cmd, shel->env_ar);
-// 	fauttoutfree_solo(shel, true, i, (in <= 3 || out <= 3));
-// }
-// 
-// void	pipex(t_shell *shel, int pidfd[3], int i, int count)
-// {
-// 	pid_t	pid;
-// 
-// 	if (pipe(&pidfd[0]) == -1)
-// 		perror("pipe");
-// 	pid = fork();
-// 	if (pid == -1)
-// 		perror("fork");
-// 	if (!pid)
-// 		children(shel, pidfd, i, count);
-// 	if (pidfd[1] > 2)
-// 		close(pidfd[1]);
-// 	if (pidfd[2] > 2)
-// 		close(pidfd[2]);
-// 	pidfd[2] = pidfd[0];
-// 	return ;
-// }
 
 void	children(t_shell *shel, int pipefd[2], int index, int argc)
 {
@@ -120,6 +67,7 @@ void	children(t_shell *shel, int pipefd[2], int index, int argc)
 	int			in;
 	int			out;
 
+	reset_sig_child();
 	in = curr.fd_in;
 	out = 1;
 	if (index + 1 == argc && curr.fd_out)
@@ -132,10 +80,10 @@ void	children(t_shell *shel, int pipefd[2], int index, int argc)
 	close_all(curr, pipefd, in, out);
 	close_all_fds();
 	if (!apply_builtins_forked(shel, index))
-		fauttoutfree_solo(shel, false, index, (in <= 3 || out <= 3));
+		fauttoutfree_solo(shel, false, index);
 	if (shel->cmd_dec[index].path && in >= 0 && out >= 0)
 		execve(curr.path, curr.cmd, shel->env_ar);
-	fauttoutfree_solo(shel, true, index, (in <= 3 || out <= 3));
+	fauttoutfree_solo(shel, true, index);
 }
 
 void	pipex(t_shell *shel, int pipefd[2], int i, int count)
@@ -170,23 +118,14 @@ void	exec_plusplus(t_shell *shel, int count)
 	static int	pidfd[2] = {-1, -1};
 	int			i;
 	int			j;
-	int			status;
 
+	signal(SIGINT, SIG_IGN);
 	i = -1;
 	while (++i < count)
 		pipex(shel, pidfd, i, count);
 	j = -1;
 	while (++j < count)
 	{
-		while (waitpid(shel->pids[j], &status, 0) > 0)
-		{
-			if (WIFEXITED(status))
-				shel->retcode = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				shel->retcode = 128 + WTERMSIG(status);
-		}
-		if (pidfd[READ_SIDE] >= 3)
-			close(pidfd[READ_SIDE]);
-		close_all_fds();
+		waiting_plusplus(shel, j, pidfd);
 	}
 }

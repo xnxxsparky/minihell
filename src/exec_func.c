@@ -6,11 +6,10 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:16:58 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/27 20:01:52 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 00:09:51 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
 #include "minihell.h"
 
 void	exec(t_shell *shel)
@@ -20,7 +19,6 @@ void	exec(t_shell *shel)
 	count = 0;
 	while (shel->cmd_dec[count].cmd)
 		count++;
-	reset_sig_child();
 	hist_adder(shel->cmd_dec, count, shel->cmd_user);
 	shel->pids = ft_calloc(count, sizeof(int));
 	if (!shel->pids)
@@ -39,4 +37,22 @@ void	close_in_out_solo(t_shell *shel)
 		close(shel->cmd_dec[0].fd_in);
 	if (shel->cmd_dec[0].fd_out >= 3)
 		close(shel->cmd_dec[0].fd_out);
+}
+
+void	display_errs(t_shell *shel, int index, int status)
+{
+	if (status == 127)
+	{
+		if (!ft_strncmp(shel->cmd_dec[index].cmd[0], "./", 2)
+			&& access(shel->cmd_dec[index].cmd[0], F_OK) != 0)
+			ft_fprintf(2, "minihell: %s: No such file or directory\n",
+				shel->cmd_dec[index].cmd[0]);
+		else
+			ft_fprintf(2, "%s: command not found\n",
+				shel->cmd_dec[index].cmd[0]);
+	}
+	else if (status == 126)
+		ft_fprintf(2, "minihell: %s: Permission denied\n",
+			shel->cmd_dec[index].cmd[0]);
+	return ;
 }

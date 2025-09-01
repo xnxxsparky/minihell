@@ -6,12 +6,10 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 23:55:38 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/28 17:19:58 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 00:10:30 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
-#include "lexer.h"
 #include "minihell.h"
 
 int	parser_redir(t_token *cur)
@@ -120,7 +118,11 @@ int	lexer_handler(t_shell *shel)
 	if (!shel->cmd)
 		return (MS_PARSER_ERR);
 	update_token(shel, &(shel->cmd));
+	if (!shel->cmd)
+		return (MS_PARSER_ERR);
 	quotes_rm(&(shel->cmd));
+	if (!shel->cmd)
+		return (MS_PARSER_ERR);
 	if (parser(shel) != MS_PARSER_OKK)
 	{
 		free(shel->cmd_user);

@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:11:59 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/27 21:12:40 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/01 02:46:58 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	cmd_alloc_while(t_token *cur, t_cmd *final, int *i, int *count)
 		(*count)++;
 	else if (cur->type == MST_PIPE)
 	{
-		final[(*i)].cmd = ft_calloc((*count) + 1, sizeof(char *));
+		final[(*i)].cmd = ft_calloc((*count) + 2, sizeof(char *));
 		if (!final[(*i)].cmd)
 			return ;
 		(*count) = 0;
@@ -92,7 +92,7 @@ void	cmd_alloc(t_cmd **cmd_final, t_token *cmd)
 			return ;
 		cur = cur->next;
 	}
-	final[i].cmd = ft_calloc(count + 1, sizeof(char *));
+	final[i].cmd = ft_calloc(count + 2, sizeof(char *));
 	if (!final[i].cmd)
 		return ;
 	*cmd_final = final;

@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 02:59:54 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/24 19:43:14 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 00:06:45 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@ static bool	return_line_question_mark(char *wr)
 	while (*wr == 'n')
 		wr++;
 	if (*wr)
-		return (true);
-	return (false);
-}
-
-static bool	need_space(char *cmp)
-{
-	if (cmp && ft_strcmp(cmp, "$"))
 		return (true);
 	return (false);
 }
@@ -51,7 +44,7 @@ void	ft_echo(t_shell *shel, int index)
 	{
 		write(1, wr, ft_strlen(wr));
 		i++;
-		if (need_space(shel->cmd_dec[index].cmd[i]))
+		if (shel->cmd_dec[index].cmd[i])
 			write(1, " ", 1);
 		wr = shel->cmd_dec[index].cmd[i];
 	}

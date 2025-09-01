@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   prompt_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 03:22:05 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/08/16 03:46:22 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 00:07:13 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,29 +47,3 @@ void	prompt_initializer(t_shell *shel, char **prompt)
 	if (!prompt)
 		return ;
 }
-
-// void	prompt_initializer(t_shell *shel, char **prompt)
-// {
-// 	t_env	*log;
-// 
-// 	log = env_finder(shel->env, "LOGNAME");
-// 	*prompt = ft_strjoin(RL_START_IGNORE, CYAN, 0, 0);
-// 	*prompt = ft_strjoin(*prompt, RL_END_IGNORE, 1, 0);
-// 	if (!log)
-// 		*prompt = ft_strjoin(*prompt, "Guest", 1, 0);
-// 	else
-// 		*prompt = ft_strjoin(*prompt, log->value, 1, 0);
-// 	*prompt = ft_strjoin(*prompt, " ", 1, 0);
-// 	*prompt = ft_strjoin(*prompt, RL_START_IGNORE, 1, 0);
-// 	*prompt = ft_strjoin(*prompt, MAGENTA, 1, 0);
-// 	*prompt = ft_strjoin(*prompt, RL_END_IGNORE, 1, 0);
-// 	log = env_finder(shel->env, "PWD");
-// 	if (!log)
-// 		*prompt = ft_strjoin(*prompt, "/NULL", 1, 0);
-// 	else
-// 		*prompt = ft_strjoin(*prompt, ft_strrchr(log->value, '/'), 1, 0);
-// 	*prompt = ft_strjoin(*prompt, RL_START_IGNORE, 1, 0);
-// 	*prompt = ft_strjoin(*prompt, RESET, 1, 0);
-// 	*prompt = ft_strjoin(*prompt, RL_END_IGNORE, 1, 0);
-// 	*prompt = ft_strjoin(*prompt, " > ", 1, 0);
-// }

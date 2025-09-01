@@ -6,12 +6,11 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:14:28 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/28 17:27:04 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 00:09:51 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
-#include <unistd.h>
 
 void	hist_adder(t_cmd *cmd_dec, int count, char *src)
 {
@@ -93,29 +92,17 @@ int	apply_builtins(t_shell *shel, int index)
 	return (1);
 }
 
-void	fauttoutfree_solo(t_shell *shel, bool need_exit, int index, bool redir)
+void	fauttoutfree_solo(t_shell *shel, bool need_exit, int index)
 {
-	int	ex_cd;
+	const t_cmd	cmd = shel->cmd_dec[index];
+	int			ex_cd;
 
-	if (!shel->cmd_dec[index].path && redir == false && need_exit)
-	{
-		ex_cd = 127;
-		if (!ft_strncmp(shel->cmd_dec[index].cmd[0], "./", 2)
-			&& access(shel->cmd_dec[index].cmd[0], F_OK) != 0)
-			ft_fprintf(2, "minihell: %s: No such file or directory\n",
-				shel->cmd_dec[index].cmd[0]);
-		else
-			ft_fprintf(2, "%s: command not found\n",
-				shel->cmd_dec[index].cmd[0]);
-	}
-	else if (need_exit && redir == false)
-	{
-		ex_cd = 126;
-		ft_fprintf(2, "minihell: %s: Permission denied\n",
-			shel->cmd_dec[index].cmd[0]);
-	}
-	else
+	if (cmd.fd_in < 0 || cmd.fd_out < 0)
 		ex_cd = 1;
+	else if (!cmd.path)
+		ex_cd = 127;
+	else
+		ex_cd = 126;
 	free_free(shel);
 	if (need_exit)
 		exit(ex_cd);

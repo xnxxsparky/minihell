@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 03:04:29 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/27 21:38:46 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/01 21:07:37 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int		apply_builtins(t_shell *shel, int index);
 
 int		apply_builtins_forked(t_shell *shel, int index);
 
-void	fauttoutfree_solo(t_shell *shel, bool need_exit, int index, bool redir);
+void	fauttoutfree_solo(t_shell *shel, bool need_exit, int index);
 
 void	close_all_fds(void);
 
@@ -208,4 +208,10 @@ void	handle_dup(int arr[2], bool std_dup);
 void	handle_pipe(t_shell *shel, int *in, int *out);
 
 void	close_in_out_solo(t_shell *shel);
+
+void	display_errs(t_shell *shel, int index, int status);
+
+void	waiting_solo(t_shell *shel);
+
+void	waiting_plusplus(t_shell *shel, int j, int pidfd[2]);
 #endif

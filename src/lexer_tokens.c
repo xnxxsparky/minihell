@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 23:16:04 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/24 19:18:16 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/01 02:18:00 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ void	lexer_get_var(t_lexer *lexer)
 		if (is_first)
 		{
 			if (!ft_isalpha(c) && c != '_' && c != '?' && c != '|'
-				&& c != '<' && c != '>')
+				&& c != '<' && c != '>' && c != '$')
 				break ;
 			is_first = false;
 		}
 		else
 		{
-			if (!ft_isalnum(c) && c != '_' && c != '|' && c != '<' && c != '>')
+			if (!ft_isalnum(c) && c != '_' && c != '|' && c != '<' && c != '>'
+				&& c != '$')
 				break ;
 		}
 		lexer_advance(lexer, 1);

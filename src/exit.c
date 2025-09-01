@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 04:31:17 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/28 19:16:12 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 00:08:26 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,27 +61,3 @@ void	ft_exit(t_shell *shel, int index)
 	free_free(shel);
 	exit(ret);
 }
-
-	/////////////////////////////
-
-// 	int		ret;
-// 	bool	ret_need;
-// 
-// 	ret_need = false;
-// 	if (!ft_isdigit_while(shel->cmd_dec[index].cmd[1])
-// 		&& shel->cmd_dec[index].cmd[2])
-// 	{
-// 		ft_fprintf(2, "minihell: exit: too many arguments\n");
-// 		shel->retcode = 1;
-// 		return ;
-// 	}
-// 	else if (shel->cmd_dec[index].cmd[1])
-// 	{
-// 		ret = ft_atoll(shel->cmd_dec[index].cmd[1]);
-// 		ret_need = true;
-// 	}
-// 	full_free(shel, &ret_need, &ret, index);
-// 	if (ret_need)
-// 		exit(ret);
-// 	exit(shel->retcode);
-// }

@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 00:05:05 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/27 22:17:37 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/08/31 22:32:09 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	handle_dup(int arr[2], bool std_dup)
 		dup2(arr[1], STDOUT_FILENO);
 		close(arr[0]);
 		close(arr[1]);
+		arr[0] = 0;
+		arr[1] = 0;
 		signal(SIGPIPE, SIG_DFL);
 	}
 	return ;
