@@ -6,11 +6,12 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 02:25:33 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/09/02 19:11:44 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 21:24:05 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
+#include <asm-generic/errno-base.h>
 
 static char	*path_creator(t_shell *shel, t_env *search, int index)
 {
@@ -65,6 +66,12 @@ static void	tild_expander(t_shell *shel, int index)
 	shel->retcode = 1;
 }
 
+void	errs_cd(t_shell *shel, char *token)
+{
+	ft_fprintf(2, "minihell: cd: %s: Not a directory\n", token);
+	shel->retcode = 1;
+}
+
 void	ft_cd(t_shell *shel, int index)
 {
 	if (array_len(shel->cmd_dec[index].cmd) >= 3)
@@ -79,6 +86,8 @@ void	ft_cd(t_shell *shel, int index)
 	else if (access(shel->cmd_dec[index].cmd[1], R_OK) == 0)
 	{
 		chdir(shel->cmd_dec[index].cmd[1]);
+		if (errno == ENOTDIR)
+			return (errs_cd(shel, shel->cmd_dec[index].cmd[1]));
 		env_addedit(&(shel->env), "PWD", get_pwd());
 		shel->retcode = 0;
 	}

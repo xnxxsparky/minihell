@@ -6,19 +6,20 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:11:59 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 19:09:11 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 21:24:27 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-static t_token	*redirection_handler(t_cmd *cmd_final, t_token **cur, t_shell *shel)
+static t_token	*redirection_handler(t_cmd *cmd_final, t_token **cur,
+		t_shell *shel)
 {
 	if (!ft_strncmp((*cur)->token, "<", 1))
 	{
 		if (!ft_strncmp((*cur)->token, "<<", 2))
 		{
-			if (cmd_final->fd_in)
+			if (cmd_final->fd_in > 2)
 				close(cmd_final->fd_in);
 			redir_here_doc(cmd_final, cur, shel);
 			reset_state();

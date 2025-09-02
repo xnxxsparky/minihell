@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:41:30 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/15 02:46:42 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 21:21:39 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	redir_in(t_cmd *cmd_final, t_token *cur)
 {
-	if (cmd_final->fd_in)
+	if (cmd_final->fd_in > 2)
 		close(cmd_final->fd_in);
 	cmd_final->name_fd_in = cur->next->token;
 	cmd_final->fd_in = open(cur->next->token, O_RDONLY, 0644);
@@ -24,7 +24,7 @@ void	redir_in(t_cmd *cmd_final, t_token *cur)
 
 void	redir_out_app(t_cmd *cmd_final, t_token *cur)
 {
-	if (cmd_final->fd_out)
+	if (cmd_final->fd_out > 2)
 		close(cmd_final->fd_out);
 	cmd_final->name_fd_out = cur->next->token;
 	cmd_final->fd_out = open(cur->next->token, O_WRONLY | O_CREAT
@@ -35,7 +35,7 @@ void	redir_out_app(t_cmd *cmd_final, t_token *cur)
 
 void	redir_out_err(t_cmd *cmd_final, t_token *cur)
 {
-	if (cmd_final->fd_out)
+	if (cmd_final->fd_out > 2)
 		close(cmd_final->fd_out);
 	cmd_final->name_fd_out = cur->next->token;
 	cmd_final->fd_out = open(cur->next->token, O_WRONLY | O_CREAT
