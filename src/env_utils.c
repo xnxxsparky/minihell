@@ -6,13 +6,13 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 02:10:28 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/09/02 02:06:18 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:19:59 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-t_env	*env_lstlast(t_env *env)
+static t_env	*env_lstlast(t_env *env)
 {
 	if (!env)
 		return (NULL);

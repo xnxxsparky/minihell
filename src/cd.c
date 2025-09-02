@@ -6,13 +6,13 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 02:25:33 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/08/14 02:42:35 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:11:44 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-char	*path_creator(t_shell *shel, t_env *search, int index)
+static char	*path_creator(t_shell *shel, t_env *search, int index)
 {
 	char	*first_path;
 	char	*second_path;
@@ -40,7 +40,7 @@ char	*path_creator(t_shell *shel, t_env *search, int index)
 	return (NULL);
 }
 
-void	tild_expander(t_shell *shel, int index)
+static void	tild_expander(t_shell *shel, int index)
 {
 	t_env	*search;
 	char	*final_path;

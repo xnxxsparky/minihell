@@ -6,13 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 01:58:32 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/12 20:22:44 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:48:17 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-bool	good_quotes(char *src)
+static bool	good_quotes(char *src)
 {
 	int		i;
 	char	to_find;

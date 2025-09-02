@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 00:01:58 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/28 19:43:28 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:48:17 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	env_join(char ***env_ar, t_env *env)
 	*env_ar = envp;
 }
 
-void	sh_init(t_shell *shel, char **env)
+static void	sh_init(t_shell *shel, char **env)
 {
 	if (!env || !env[0] || !env[1] || !env[2] || !env[3])
 		env_secure(&(shel->env));
@@ -74,7 +74,7 @@ int	cmd_len_calc(t_token *cmd)
 	return (ret);
 }
 
-void	cmd_getter(t_shell *shel)
+static void	cmd_getter(t_shell *shel)
 {
 	reset_state();
 	shel->cmd_user = readline(shel->prompt);

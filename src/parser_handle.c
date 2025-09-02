@@ -6,13 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 23:55:38 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 00:10:30 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:36:49 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-int	parser_redir(t_token *cur)
+static int	parser_redir(t_token *cur)
 {
 	t_token	*next;
 
@@ -40,7 +40,7 @@ int	parser_redir(t_token *cur)
 	return (MS_PARSER_OKK);
 }
 
-int	parser_pipe(t_token *cur, bool *is_fst_cmd)
+static int	parser_pipe(t_token *cur, bool *is_fst_cmd)
 {
 	t_token	*next;
 
@@ -58,7 +58,7 @@ int	parser_pipe(t_token *cur, bool *is_fst_cmd)
 	return (MS_PARSER_OKK);
 }
 
-int	parser_frst(t_token *cur, bool *is_fst_cmd)
+static int	parser_frst(t_token *cur, bool *is_fst_cmd)
 {
 	t_token	*next;
 
@@ -83,7 +83,7 @@ int	parser_frst(t_token *cur, bool *is_fst_cmd)
 	return (MS_PARSER_OKK);
 }
 
-int	parser(t_shell *shel)
+static int	parser(t_shell *shel)
 {
 	t_token	*cur;
 	bool	is_fst_cmd;

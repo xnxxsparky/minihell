@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 20:23:07 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/01 17:36:14 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:44:48 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // 	}
 // }
 
-t_token	*no_dol(t_token *del, t_token **cmd)
+static t_token	*no_dol(t_token *del, t_token **cmd)
 {
 	t_token	*cur;
 
@@ -46,7 +46,7 @@ t_token	*no_dol(t_token *del, t_token **cmd)
 	return (cur);
 }
 
-t_token	*update_list(t_token *del, t_token **cmd)
+static t_token	*update_list(t_token *del, t_token **cmd)
 {
 	t_token	*cur;
 	t_token	*new;
@@ -75,7 +75,7 @@ t_token	*update_list(t_token *del, t_token **cmd)
 	return (cur);
 }
 
-bool	only_dol(char *token)
+static bool	only_dol(char *token)
 {
 	int	i;
 
@@ -89,7 +89,7 @@ bool	only_dol(char *token)
 	return (true);
 }
 
-void	update_xpd(t_shell *shel, t_token **cmd, t_token **cur)
+static void	update_xpd(t_shell *shel, t_token **cmd, t_token **cur)
 {
 	t_states	old;
 

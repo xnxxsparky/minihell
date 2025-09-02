@@ -6,13 +6,13 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 02:07:46 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/09/02 02:04:06 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:26:18 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-void	add_to_env(t_shell *shel, char *arg, char *eq)
+static void	add_to_env(t_shell *shel, char *arg, char *eq)
 {
 	char	*name;
 	char	*val;
@@ -37,7 +37,7 @@ void	add_to_env(t_shell *shel, char *arg, char *eq)
 	free(arg);
 }
 
-void	export_export(t_shell *shel, int index)
+static void	export_export(t_shell *shel, int index)
 {
 	t_env	*cur;
 
@@ -55,7 +55,7 @@ void	export_export(t_shell *shel, int index)
 	}
 }
 
-void	xprt_nrm(t_shell *shel, int index, int i)
+static void	xprt_nrm(t_shell *shel, int index, int i)
 {
 	char	*arg;
 	char	*eq;

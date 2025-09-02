@@ -6,13 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 01:58:15 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/24 18:41:40 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:38:19 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-char	*finder_while(char *src, char **pot_path)
+static char	*finder_while(char *src, char **pot_path)
 {
 	char	path[4096];
 	int		i;
@@ -40,7 +40,7 @@ char	*finder_while(char *src, char **pot_path)
 	return (NULL);
 }
 
-char	*path_finder(char *src, char *path)
+static char	*path_finder(char *src, char *path)
 {
 	char	**pot_path;
 	char	*path_finded;

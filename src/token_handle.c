@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 17:02:48 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/23 18:38:17 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:42:50 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_tkn(t_token **cmd)
 	}
 }
 
-t_token	*tkn_last(t_token *head)
+static t_token	*tkn_last(t_token *head)
 {
 	t_token	*cur;
 
@@ -37,7 +37,7 @@ t_token	*tkn_last(t_token *head)
 	return (cur);
 }
 
-void	tkn_addback(t_token **head, t_token *new)
+static void	tkn_addback(t_token **head, t_token *new)
 {
 	t_token	*tmp;
 
@@ -52,7 +52,7 @@ void	tkn_addback(t_token **head, t_token *new)
 	}
 }
 
-t_token	*tkn_new(const char *data, int len, t_states type)
+static t_token	*tkn_new(const char *data, int len, t_states type)
 {
 	t_token	*token;
 

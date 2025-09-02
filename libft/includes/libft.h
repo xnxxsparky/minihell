@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 23:30:24 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/12 14:07:08 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:09:52 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef LIBFT_H
@@ -19,6 +19,7 @@
 # include <stdarg.h>
 # include <stdint.h>
 # include <limits.h>
+# include <fcntl.h>
 
 size_t		ft_strlen(const char *s);
 char		*ft_strjoin(char *s1, char *s2, bool del_s1, bool del_s2);
@@ -27,7 +28,7 @@ char		*ft_strcat(char *dst, const char *src);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 void		ft_bzero(void *s, size_t n);
 char		*ft_strdup(const char *s);
-char		*ft_strcpy(char *dst, const char *src, int *j);
+char		*ft_strcpy(char *dst, const char *src);
 char		**ft_split(char const *s, char c);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
@@ -54,15 +55,12 @@ int			ft_putnbr_fd(int n, int fd);
 
 //fprintf
 int			ft_fprintf(int fd, char const *src, ...);
-int			ft_display_fpf(int fd, char const *src, va_list stck);
 int			ft_fpf_conv_cases(int fd, char const *src, va_list list, int *i);
 int			ft_fprintf_char(int fd, int *i, char c);
 int			ft_fprintf_perc(int fd, int *i);
 int			ft_fprintf_digit(int fd, int *i, int disp);
 int			ft_fprintf_str(int fd, int *i, char *str);
 int			ft_fprintf_hex(int fd, int *i, unsigned int disp, char *mode);
-int			ft_fprintf_udig(int fd, int *i, unsigned int disp);
-int			ft_fprintf_point(int fd, int *i, uintptr_t point);
 int			ft_putnbr_hex_fd(unsigned long n, int fd, char *mode);
 int			ft_putunbr_fd(long long n, int fd);
 #endif

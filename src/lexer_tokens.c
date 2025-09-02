@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 23:16:04 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/01 02:18:00 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:33:25 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,32 +82,32 @@ t_states	next_token(t_lexer *lexer)
 		return (token_word(lexer));
 	return (MST_EOF);
 }
-
-t_states	lexer_peek_token(t_lexer *lexer)
-{
-	const char	*save;
-	t_states	token;
-
-	save = lexer->content;
-	token = next_token(lexer);
-	lexer->content = save;
-	return (token);
-}
-
-bool	token_error(t_lexer lexer, t_states token)
-{
-	t_states	next;
-
-	if (token == MST_REDIR || token == MST_PIPE)
-	{
-		next = lexer_peek_token(&lexer);
-		if (next != MST_WORD)
-		{
-			next = next_token(&lexer);
-			ft_fprintf(2, "minihell : syntax error near unexpected token "
-				"'%.*s'\n", (int)lexer.token.len, lexer.token.str);
-			return (true);
-		}
-	}
-	return (false);
-}
+// 
+// static t_states	lexer_peek_token(t_lexer *lexer)
+// {
+// 	const char	*save;
+// 	t_states	token;
+// 
+// 	save = lexer->content;
+// 	token = next_token(lexer);
+// 	lexer->content = save;
+// 	return (token);
+// }
+// 
+// bool	token_error(t_lexer lexer, t_states token)
+// {
+// 	t_states	next;
+// 
+// 	if (token == MST_REDIR || token == MST_PIPE)
+// 	{
+// 		next = lexer_peek_token(&lexer);
+// 		if (next != MST_WORD)
+// 		{
+// 			next = next_token(&lexer);
+// 			ft_fprintf(2, "minihell : syntax error near unexpected token "
+// 				"'%.*s'\n", (int)lexer.token.len, lexer.token.str);
+// 			return (true);
+// 		}
+// 	}
+// 	return (false);
+// }

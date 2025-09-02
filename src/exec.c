@@ -6,13 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 01:58:46 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 00:09:10 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 20:06:24 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-void	child_employed(t_shell *shel)
+static void	child_employed(t_shell *shel)
 {
 	int		in;
 	int		out;
@@ -38,7 +38,7 @@ void	child_employed(t_shell *shel)
 	}
 	if (shel->cmd_dec[0].path && out >= 0 && in >= 0)
 		execve(shel->cmd_dec[0].path, shel->cmd_dec->cmd, shel->env_ar);
-	fauttoutfree_solo(shel, true, 0);
+	full_free(shel, true, 0);
 }
 
 void	exec_solo(t_shell *shel)
@@ -61,7 +61,7 @@ void	exec_solo(t_shell *shel)
 	}
 }
 
-void	children(t_shell *shel, int pipefd[2], int index, int argc)
+static void	children(t_shell *shel, int pipefd[2], int index, int argc)
 {
 	const t_cmd	curr = shel->cmd_dec[index];
 	int			in;
@@ -80,13 +80,13 @@ void	children(t_shell *shel, int pipefd[2], int index, int argc)
 	close_all(curr, pipefd, in, out);
 	close_all_fds();
 	if (!apply_builtins_forked(shel, index))
-		fauttoutfree_solo(shel, false, index);
+		full_free(shel, false, index);
 	if (shel->cmd_dec[index].path && in >= 0 && out >= 0)
 		execve(curr.path, curr.cmd, shel->env_ar);
-	fauttoutfree_solo(shel, true, index);
+	full_free(shel, true, index);
 }
 
-void	pipex(t_shell *shel, int pipefd[2], int i, int count)
+static void	pipex(t_shell *shel, int pipefd[2], int i, int count)
 {
 	pid_t	pid;
 	bool	need_pipe;

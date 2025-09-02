@@ -6,13 +6,13 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 03:22:05 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/09/02 00:07:13 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:38:50 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-char	*join3(char *str1, char *str2, char *str3, int opt)
+static char	*join3(char *str1, char *str2, char *str3, int opt)
 {
 	char	*tmp;
 	char	*result;

@@ -6,7 +6,7 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 01:59:51 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/08/23 17:57:16 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:14:53 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_env	*env_finder(t_env *env, char *name)
 		return (curr);
 }
 
-void	splitter(t_env **newenv, char *eq, char **env, int i)
+static void	splitter(t_env **newenv, char *eq, char **env, int i)
 {
 	t_env	*node;
 	char	*val;

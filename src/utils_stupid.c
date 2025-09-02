@@ -6,24 +6,11 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 02:29:20 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/27 21:38:34 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:45:49 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
-
-char	*joinwhile(char *recep, char *to_add)
-{
-	char	*ret;
-
-	ret = ft_strjoin(recep, "=", 1, 0);
-	if (!ret)
-		return (NULL);
-	ret = ft_strjoin(ret, to_add, 1, 0);
-	if (!ret)
-		return (NULL);
-	return (ret);
-}
 
 void	free_spl(void **s)
 {

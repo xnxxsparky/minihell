@@ -6,13 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 21:19:17 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/16 07:24:37 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:39:51 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-int	lenwoq(char *token)
+static int	lenwoq(char *token)
 {
 	char	*tmp;
 	int		ret;
@@ -38,7 +38,7 @@ int	lenwoq(char *token)
 	return (ret);
 }
 
-void	keep_good_ones(char *token, char *ret, int *i, int *j)
+static void	keep_good_ones(char *token, char *ret, int *i, int *j)
 {
 	char	*tmp;
 
@@ -54,7 +54,7 @@ void	keep_good_ones(char *token, char *ret, int *i, int *j)
 	}
 }
 
-void	dead_quotes(char **token)
+static void	dead_quotes(char **token)
 {
 	char	*ret;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 03:04:29 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 03:04:40 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 20:05:55 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,6 @@ t_env
 
 //env_utils.c
 t_env
-*env_lstlast(t_env *env);
-
-t_env
 *env_lstnew(char *name, char *value);
 
 t_env
@@ -114,14 +111,8 @@ env_lstadd_back(t_env **env, t_env *line);
 char
 *get_pwd(void);
 
-char
-*get_home(void);
-
 void
 env_lstclear(t_env **env);
-
-void
-env_free(t_env **env);
 
 void
 env_secure(t_env **newenv);
@@ -161,9 +152,6 @@ void
 ft_echo(t_shell *shel, int index);
 
 //utils_stupids.c
-char
-*joinwhile(char *ret, char *to_add);
-
 void
 free_spl(void **s);
 
@@ -206,18 +194,6 @@ len_calc(t_shell *shel, char *token);
 
 void
 handle_status(t_quotes *status, char c);
-
-int
-parser_redir(t_token *cur);
-
-int
-parser_pipe(t_token *cur, bool *is_fst_cmd);
-
-int
-parser_frst(t_token *cur, bool *is_fst_cmd);
-
-int
-parser(t_shell *shel);
 
 void
 update_token(t_shell *shel, t_token **cmd);
@@ -262,7 +238,7 @@ int
 apply_builtins_forked(t_shell *shel, int index);
 
 void
-fauttoutfree_solo(t_shell *shel, bool need_exit, int index);
+full_free(t_shell *shel, bool need_exit, int index);
 
 void
 close_all_fds(void);
@@ -311,9 +287,6 @@ waiting_plusplus(t_shell *shel, int j, int pidfd[2]);
 
 bool
 valid_xprt_name(char *test);
-
-t_env
-*env_lstnew_xprt(char *name, char *value);
 
 t_env	
 **xprt_edit(t_env **env, char *name, char *val);

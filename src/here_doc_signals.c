@@ -6,13 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:09:31 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/23 22:09:52 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:31:01 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-void	sig_handle_heredoc(int sig)
+static void	sig_handle_heredoc(int sig)
 {
 	if (sig == SIGINT)
 	{

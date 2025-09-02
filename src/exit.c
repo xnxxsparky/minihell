@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 04:31:17 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 01:52:54 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:24:28 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_cmd_dec(t_cmd **cmd_dec)
 	free(*cmd_dec);
 }
 
-void	closed(t_shell *shel, int index)
+static void	closed(t_shell *shel, int index)
 {
 	if (!shel->cmd_dec[index + 1].cmd)
 	{

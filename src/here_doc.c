@@ -6,19 +6,19 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 19:22:17 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/28 17:00:35 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:30:27 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-bool	need_quotes_back(char *line)
+static bool	need_quotes_back(char *line)
 {
 	return (*line == '\'' || *line == '"' || line[ft_strlen(line) - 1] == '\''
 		|| line[ft_strlen(line) - 1] == '"');
 }
 
-void	lim_handler(char **delim, char **lim, bool *xpd)
+static void	lim_handler(char **delim, char **lim, bool *xpd)
 {
 	t_token	*cmd;
 
@@ -46,7 +46,7 @@ void	lim_handler(char **delim, char **lim, bool *xpd)
 	}
 }
 
-void	wrt_in_fd(bool xpd, char *line, int fd, t_shell *shel)
+static void	wrt_in_fd(bool xpd, char *line, int fd, t_shell *shel)
 {
 	t_token	*cmd;
 	char	c;

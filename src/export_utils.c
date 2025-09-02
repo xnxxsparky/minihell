@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 01:56:13 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 01:57:32 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:27:08 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	valid_xprt_name(char *test)
 	return (true);
 }
 
-t_env	*env_lstnew_xprt(char *name, char *value)
+static t_env	*env_lstnew_xprt(char *name, char *value)
 {
 	t_env	*ret;
 

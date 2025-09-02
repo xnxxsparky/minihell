@@ -6,12 +6,10 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 21:19:43 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/04/08 21:54:45 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:04:55 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
 #include "libft.h"
 
 char	*ft_random_name(char *prefix, int size)

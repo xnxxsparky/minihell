@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 20:28:51 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/15 02:46:42 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:29:24 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	handle_status(t_quotes *status, char c)
 	}
 }
 
-int	handle_calc(t_shell *shel, char *token, int *i)
+static int	handle_calc(t_shell *shel, char *token, int *i)
 {
 	t_env	*env;
 	char	*save;

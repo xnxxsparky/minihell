@@ -6,7 +6,7 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 01:26:12 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/08/23 18:38:17 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:28:25 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	handle_retcode(t_shell *shel, int *i)
 	return (len_a_add);
 }
 
-int	ret_fill(t_shell *shel, char *ret, int *i)
+static int	ret_fill(t_shell *shel, char *ret, int *i)
 {
 	char	*retcode;
 	int		k;
@@ -43,7 +43,7 @@ int	ret_fill(t_shell *shel, char *ret, int *i)
 	return (2);
 }
 
-int	dol_fill(t_shell *shel, char *token, char *ret, int *i)
+static int	dol_fill(t_shell *shel, char *token, char *ret, int *i)
 {
 	t_env	*env;
 	char	*save;
@@ -69,7 +69,7 @@ int	dol_fill(t_shell *shel, char *token, char *ret, int *i)
 	return (j);
 }
 
-int	fill_dol(t_shell *shel, char *token, char *ret, int *i)
+static int	fill_dol(t_shell *shel, char *token, char *ret, int *i)
 {
 	if (token[1] && token[1] == '?')
 		return (ret_fill(shel, ret, i));

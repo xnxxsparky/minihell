@@ -6,13 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:11:59 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/01 02:46:58 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:09:11 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
 
-t_token	*redirection_handler(t_cmd *cmd_final, t_token **cur, t_shell *shel)
+static t_token	*redirection_handler(t_cmd *cmd_final, t_token **cur, t_shell *shel)
 {
 	if (!ft_strncmp((*cur)->token, "<", 1))
 	{
@@ -38,7 +38,7 @@ t_token	*redirection_handler(t_cmd *cmd_final, t_token **cur, t_shell *shel)
 	return ((*cur)->next);
 }
 
-void	append(t_cmd *cmd_final, t_token *cmd, t_shell *shel)
+static void	append(t_cmd *cmd_final, t_token *cmd, t_shell *shel)
 {
 	int	i;
 
@@ -56,7 +56,7 @@ void	append(t_cmd *cmd_final, t_token *cmd, t_shell *shel)
 	cmd_final->cmd[i] = cmd->token;
 }
 
-void	cmd_alloc_while(t_token *cur, t_cmd *final, int *i, int *count)
+static void	cmd_alloc_while(t_token *cur, t_cmd *final, int *i, int *count)
 {
 	if (cur->type == MST_WORD || cur->type == MST_REDIR)
 		(*count)++;

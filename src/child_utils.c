@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:14:28 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 00:09:51 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 20:05:55 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	apply_builtins(t_shell *shel, int index)
 	return (1);
 }
 
-void	fauttoutfree_solo(t_shell *shel, bool need_exit, int index)
+void	full_free(t_shell *shel, bool need_exit, int index)
 {
 	const t_cmd	cmd = shel->cmd_dec[index];
 	int			ex_cd;

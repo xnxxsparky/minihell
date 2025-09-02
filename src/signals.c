@@ -6,7 +6,7 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 01:34:16 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/09/02 00:07:32 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:41:31 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 volatile sig_atomic_t	g_sig = 0;
 
-void	sig_handle_int(int sig)
+static void	sig_handle_int(int sig)
 {
 	if (sig == SIGINT)
 	{

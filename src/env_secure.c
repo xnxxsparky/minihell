@@ -6,7 +6,7 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 03:32:19 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/09/02 01:54:28 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:17:53 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_pwd(void)
 	return ("");
 }
 
-char	*get_home(void)
+static char	*get_home(void)
 {
 	struct dirent	*d;
 	DIR				*dir;
@@ -67,22 +67,6 @@ void	env_lstclear(t_env **env)
 	}
 	free(curr);
 	*env = NULL;
-}
-
-void	env_free(t_env **env)
-{
-	t_env	*tmp;
-
-	if (!*env || !env)
-		return ;
-	while (*env)
-	{
-		tmp = *env;
-		free(tmp->name);
-		free(tmp->value);
-		(*env) = (*env)->next;
-		free(tmp);
-	}
 }
 
 void	env_secure(t_env **newenv)

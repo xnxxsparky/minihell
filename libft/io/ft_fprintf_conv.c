@@ -6,19 +6,19 @@
 /*   By: bcausseq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 22:31:47 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/07/28 23:14:50 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:03:11 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_fprintf_udig(int fd, int *i, unsigned int disp)
+static int	ft_fprintf_udig(int fd, int *i, unsigned int disp)
 {
 	(*i)++;
 	return (ft_putunbr_fd((unsigned long long)disp, fd));
 }
 
-int	ft_fprintf_point(int fd, int *i, uintptr_t point)
+static int	ft_fprintf_point(int fd, int *i, uintptr_t point)
 {
 	int	tmp;
 
