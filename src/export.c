@@ -6,38 +6,11 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 02:07:46 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/08/23 18:38:17 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 02:04:06 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
-
-bool	valid_xprt_name(char *test)
-{
-	bool	is_first;
-	char	c;
-
-	is_first = true;
-	if (*test == '=')
-		return (false);
-	while (*test && *test != '=')
-	{
-		c = *test;
-		if (is_first)
-		{
-			if (!ft_isalpha(c) && c != '_' && c != '?')
-				return (false);
-			is_first = false;
-		}
-		else
-		{
-			if (!ft_isalnum(c) && c != '_')
-				return (false);
-		}
-		test++;
-	}
-	return (true);
-}
 
 void	add_to_env(t_shell *shel, char *arg, char *eq)
 {
@@ -47,13 +20,18 @@ void	add_to_env(t_shell *shel, char *arg, char *eq)
 	name = ft_strndup(arg, eq - arg);
 	if (!name)
 		return ;
-	val = ft_strdup(eq + 1);
+	if (eq)
+		val = ft_strdup(eq + 1);
+	else
+		val = NULL;
 	if (!val)
 	{
+		xprt_edit(&(shel->env), name, NULL);
 		free(name);
+		free(arg);
 		return ;
 	}
-	env_addedit(&(shel->env), name, val);
+	xprt_edit(&(shel->env), name, val);
 	free(name);
 	free(val);
 	free(arg);
@@ -84,13 +62,8 @@ void	xprt_nrm(t_shell *shel, int index, int i)
 
 	arg = ft_strdup(shel->cmd_dec[index].cmd[i]);
 	eq = ft_strchr(arg, '=');
-	if (eq && arg)
+	if (arg)
 		add_to_env(shel, arg, eq);
-	else
-	{
-		if (arg)
-			free(arg);
-	}
 }
 
 void	ft_export(t_shell *shel, int index)

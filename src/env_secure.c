@@ -6,7 +6,7 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 03:32:19 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/07/28 22:16:49 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 01:54:28 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	env_lstclear(t_env **env)
 		tmp = curr->next;
 		free(curr->name);
 		curr->name = NULL;
-		free(curr->value);
+		if (curr->value && *(curr->value))
+			free(curr->value);
 		curr->value = NULL;
 		curr->next = NULL;
 		free(curr);

@@ -6,7 +6,7 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 02:10:28 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/08/23 18:38:17 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 02:06:18 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ void	env_lstdelone(t_env **env, t_env *target)
 	else
 		*env = curr->next;
 	free(curr->name);
-	free(curr->value);
+	if (curr->value && *(curr->value))
+		free(curr->value);
 	free(curr);
 }
 

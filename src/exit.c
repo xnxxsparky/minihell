@@ -6,10 +6,11 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 04:31:17 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 00:08:26 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/02 01:52:54 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "includes/libft.h"
 #include "minihell.h"
 
 void	free_cmd_dec(t_cmd **cmd_dec)
@@ -39,10 +40,10 @@ void	closed(t_shell *shel, int index)
 void	ft_exit(t_shell *shel, int index)
 {
 	int			ret;
-	const char	*code;
+	char		*code;
 
 	code = shel->cmd_dec[index].cmd[1];
-	if (code && shel->cmd_dec[index].cmd[2])
+	if (code && shel->cmd_dec[index].cmd[2] && !ft_isdigit_while(code))
 	{
 		ft_fprintf(2, "minihell: exit: too many arguments\n");
 		shel->retcode = 1;
@@ -52,7 +53,7 @@ void	ft_exit(t_shell *shel, int index)
 		ret = shel->retcode;
 	else
 		ret = ft_atoll(code);
-	if (errno == ERANGE)
+	if (code && (errno == ERANGE || ft_isdigit_while(code)))
 	{
 		ft_fprintf(2, "minihell: exit: %s: numeric argument required\n", code);
 		ret = 2;
