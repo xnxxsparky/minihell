@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:11:59 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 21:24:27 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/03 18:42:35 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static t_token	*redirection_handler(t_cmd *cmd_final, t_token **cur,
 		else
 			redir_out_err(cmd_final, (*cur));
 	}
+	if (fail_open(cmd_final))
+		return (NULL);
 	return ((*cur)->next);
 }
 

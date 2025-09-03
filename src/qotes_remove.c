@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 21:19:17 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 19:39:51 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/03 19:32:50 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,13 @@ static void	keep_good_ones(char *token, char *ret, int *i, int *j)
 	}
 }
 
+void	moral_test(char **token)
+{
+	free(*token);
+	errno = EINVAL;
+	*token = NULL;
+}
+
 static void	dead_quotes(char **token)
 {
 	char	*ret;
@@ -61,13 +68,15 @@ static void	dead_quotes(char **token)
 	int		j;
 	int		len;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	len = lenwoq(*token);
+	if (len == 0)
+		return (moral_test(token));
 	ret = ft_calloc(len + 1, sizeof(char));
 	if (!ret)
 		return ;
-	while ((*token)[i])
+	while ((*token)[++i])
 	{
 		if ((*token)[i] == '\'' || (*token)[i] == '"')
 			keep_good_ones(*token, ret, &i, &j);
@@ -75,7 +84,6 @@ static void	dead_quotes(char **token)
 		{
 			ret[j] = (*token)[i];
 			j++;
-			i++;
 		}
 	}
 	free(*token);
@@ -92,7 +100,7 @@ void	quotes_rm(t_token **cmd)
 		if (cur->type == MST_WORD && !cur->expanded)
 		{
 			dead_quotes(&(cur->token));
-			if (!cur->token)
+			if (!cur->token && errno != EINVAL)
 				return ;
 		}
 		if (cur->type == MST_REDIR && !ft_strncmp(cur->token, "<<", 2)

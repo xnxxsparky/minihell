@@ -6,7 +6,7 @@
 #    By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 01:17:51 by bcausseq          #+#    #+#              #
-#    Updated: 2025/09/02 01:57:49 by bcausseq         ###   ########.fr        #
+#    Updated: 2025/09/03 18:43:38 by bcausseq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC 			= cc
@@ -59,7 +59,8 @@ SRCS		= src/main.c\
 			  src/child_utils.c\
 			  src/exec_func.c\
 			  src/builtin_handle.c\
-			  src/export_utils.c
+			  src/export_utils.c\
+			  src/errs_ret_code.c
 
 OBJ_DIR		= build
 

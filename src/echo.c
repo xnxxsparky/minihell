@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 02:59:54 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 00:54:05 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/03 19:22:44 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	return_line_question_mark(char *wr)
 {
-	if (!wr || *wr != '-' || (*wr && !*(wr + 1)) || !*wr)
+	if (!wr || !*wr || *wr != '-' || (*wr && !*(wr + 1)))
 		return (true);
 	wr++;
 	while (*wr == 'n')

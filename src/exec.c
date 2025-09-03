@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 01:58:46 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 20:06:24 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/03 19:37:26 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	child_employed(t_shell *shel)
 	int		in;
 	int		out;
 
-	reset_sig_child();
+	setup_child();
 	in = 0;
 	out = 0;
 	if (shel->cmd_dec[0].fd_in)
@@ -67,7 +67,7 @@ static void	children(t_shell *shel, int pipefd[2], int index, int argc)
 	int			in;
 	int			out;
 
-	reset_sig_child();
+	setup_child();
 	in = curr.fd_in;
 	out = 1;
 	if (index + 1 == argc && curr.fd_out)

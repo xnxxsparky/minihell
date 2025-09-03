@@ -6,11 +6,10 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 04:31:17 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 19:24:28 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/03 19:41:07 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
 #include "minihell.h"
 
 void	free_cmd_dec(t_cmd **cmd_dec)
@@ -60,5 +59,6 @@ void	ft_exit(t_shell *shel, int index)
 	}
 	closed(shel, index);
 	free_free(shel);
+	rl_clear_history();
 	exit(ret);
 }

@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 03:04:29 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 20:05:55 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/03 19:37:09 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,16 @@ waiting_plusplus(t_shell *shel, int j, int pidfd[2]);
 bool
 valid_xprt_name(char *test);
 
+void
+ret_code_errs_handle(t_shell *shel);
+
+bool
+fail_open(t_cmd *cmd_dec);
+
 t_env	
 **xprt_edit(t_env **env, char *name, char *val);
+
+void
+setup_child();
 
 #endif
