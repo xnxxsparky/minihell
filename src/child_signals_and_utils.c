@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:13:04 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/03 19:37:26 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/03 20:30:15 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	waiting_solo(t_shell *shel)
 	return ;
 }
 
-void	setup_child()
+void	setup_child(void)
 {
 	reset_sig_child();
 	rl_clear_history();

@@ -6,12 +6,11 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 02:25:33 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/09/02 21:24:05 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/03 21:35:48 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
-#include <asm-generic/errno-base.h>
 
 static char	*path_creator(t_shell *shel, t_env *search, int index)
 {
@@ -21,13 +20,13 @@ static char	*path_creator(t_shell *shel, t_env *search, int index)
 
 	first_path = ft_strndup(search->value, ft_strlen(search->value));
 	second_path = ft_strchr(shel->cmd_dec[index].cmd[1], '~');
-	if (!second_path)
+	if (first_path && !second_path)
 	{
 		free(first_path);
 		return (ft_strdup(search->value));
 	}
 	second_path = ft_strdup(second_path + 1);
-	if (!second_path)
+	if (first_path && !second_path)
 	{
 		free(first_path);
 		return (ft_strdup(search->value));

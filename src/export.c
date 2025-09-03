@@ -6,7 +6,7 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 02:07:46 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/09/02 19:26:18 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/03 22:15:12 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,27 +69,27 @@ static void	xprt_nrm(t_shell *shel, int index, int i)
 void	ft_export(t_shell *shel, int index)
 {
 	int		i;
+	bool	errs;
 
-	i = 1;
+	i = 0;
+	errs = false;
 	if (!shel->cmd_dec[index].cmd[1])
 		return (export_export(shel, index));
-	while (shel->cmd_dec[index].cmd[i])
+	while (shel->cmd_dec[index].cmd[++i])
 	{
 		if (!valid_xprt_name(shel->cmd_dec[index].cmd[i]))
 		{
 			ft_fprintf(2, "minihell: export: `%s': not a valid identifier\n",
 				shel->cmd_dec[index].cmd[i]);
 			shel->retcode = 1;
-			return ;
+			errs = true;
+			break ;
 		}
-		i++;
-	}
-	i = 1;
-	while (shel->cmd_dec[index].cmd[i])
-	{
 		xprt_nrm(shel, index, i);
-		i++;
 	}
 	env_join(&(shel->env_ar), shel->env);
-	shel->retcode = 0;
+	if (!shel->env_ar)
+		return ;
+	if (!errs)
+		shel->retcode = 0;
 }

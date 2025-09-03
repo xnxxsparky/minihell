@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 19:22:17 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 19:30:27 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/03 21:48:40 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,16 @@ static void	lim_handler(char **delim, char **lim, bool *xpd)
 	}
 }
 
+static void	wrt(char c, char *line, int fd)
+{
+	if (c)
+		write(fd, &c, 1);
+	write(fd, line, ft_strlen(line) - 1);
+	if (c)
+		write(fd, &c, 1);
+	write(fd, "\n", 1);
+}
+
 static void	wrt_in_fd(bool xpd, char *line, int fd, t_shell *shel)
 {
 	t_token	*cmd;
@@ -62,15 +72,14 @@ static void	wrt_in_fd(bool xpd, char *line, int fd, t_shell *shel)
 			cmd = &(t_token){.token = line, .type = MST_WORD,
 				.expanded = 0, .next = NULL};
 			quotes_rm(&cmd);
+			if (!cmd)
+				return ;
 			line = cmd->token;
 		}
 		replace(shel, line, &line);
-		if (c)
-			write(fd, &c, 1);
-		write(fd, line, ft_strlen(line) - 1);
-		if (c)
-			write(fd, &c, 1);
-		write(fd, "\n", 1);
+		if (!line)
+			return ;
+		wrt(c, line, fd);
 	}
 	free(line);
 }

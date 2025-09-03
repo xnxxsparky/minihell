@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 03:04:29 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/03 19:37:09 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/03 20:30:41 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,10 +294,10 @@ ret_code_errs_handle(t_shell *shel);
 bool
 fail_open(t_cmd *cmd_dec);
 
+void
+setup_child(void);
+
 t_env	
 **xprt_edit(t_env **env, char *name, char *val);
-
-void
-setup_child();
 
 #endif

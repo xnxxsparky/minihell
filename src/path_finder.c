@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 01:58:15 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 19:38:19 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/03 21:52:38 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,6 @@ void	parse(t_shell *shel, char *src, char **bin)
 	char	*cmd;
 	t_env	*path;
 
-	if (access(src, F_OK) == 0)
-	{
-		*bin = ft_strdup(src);
-		return ;
-	}
 	path = env_finder(shel->env, "PATH");
 	if (!src || ft_strlen(src) >= 4096 || path == NULL)
 	{
@@ -69,5 +64,14 @@ void	parse(t_shell *shel, char *src, char **bin)
 		return ;
 	}
 	cmd = path_finder(src, path->value);
-	*bin = cmd;
+	if (cmd)
+	{
+		*bin = cmd;
+		return ;
+	}
+	if (access(src, F_OK) == 0)
+	{
+		*bin = ft_strdup(src);
+		return ;
+	}
 }

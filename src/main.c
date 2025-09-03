@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 00:01:58 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/03 18:46:42 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/03 20:25:17 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	cmd_getter(t_shell *shel)
 		return ;
 	}
 	handle_input(shel);
-	if (g_sig || lexer_handler(shel) != MS_PARSER_OKK)
+	if (lexer_handler(shel) != MS_PARSER_OKK)
 		return ;
 	buid_t_cmd(shel, &(shel->cmd_dec));
 	if (!shel->cmd_dec || !shel->cmd_dec->cmd[0])
@@ -116,6 +116,14 @@ int	main(int argc, char **argv, char **env)
 	ft_fprintf(1, "\e[1;1H\e[2J");
 	ft_bzero(&shel, sizeof(t_shell));
 	sh_init(&shel, env);
+	if (!shel.env || !shel.env_ar || !shel.prompt)
+	{
+		if (shel.env)
+			env_lstclear(&(shel.env));
+		if (shel.env_ar)
+			free_spl((void **)shel.env_ar);
+		return (1);
+	}
 	while (1)
 		cmd_getter(&shel);
 	return (0);
