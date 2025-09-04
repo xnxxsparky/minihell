@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 23:55:38 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/03 17:55:56 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 01:06:52 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	parser_frst(t_token *cur, bool *is_fst_cmd)
 	if (cur->type == MST_REDIR)
 	{
 		next = cur->next;
-		if (!next || !next->next || next->next->type != MST_WORD)
+		if (!next)
 		{
 			ft_fprintf(2, "minihell: syntax error near unexpected token"
 				" `newline'\n");

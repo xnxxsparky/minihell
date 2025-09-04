@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 01:58:46 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/03 19:37:26 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 01:05:15 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	children(t_shell *shel, int pipefd[2], int index, int argc)
 	setup_child();
 	in = curr.fd_in;
 	out = 1;
-	if (index + 1 == argc && curr.fd_out)
+	if ((index + 1 == argc && curr.fd_out) || curr.fd_out)
 		out = curr.fd_out;
 	else if (index + 1 != argc)
 		out = pipefd[WRITE_SIDE];

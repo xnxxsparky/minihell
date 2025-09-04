@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 01:58:32 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/03 19:39:27 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/04 22:19:22 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ bool	is_line_valid(t_shell *shel, char *src)
 		free_spl((void **)shel->env_ar);
 		write(1, "exit\n", 5);
 		rl_clear_history();
+		if (g_sig)
+			exit(130);
 		exit(shel->retcode);
 	}
 	if (good_quotes(src) == false)

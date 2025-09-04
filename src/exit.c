@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 04:31:17 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/03 19:41:07 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/04 23:40:15 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void	free_cmd_dec(t_cmd **cmd_dec)
 	i = 0;
 	while ((*cmd_dec)[i].cmd)
 	{
-		free((*cmd_dec)[i].path);
-		free((*cmd_dec)[i].cmd);
+		if ((*cmd_dec)[i].path)
+			free((*cmd_dec)[i].path);
+		if ((*cmd_dec)[i].cmd)
+			free((*cmd_dec)[i].cmd);
 		i++;
 	}
 	free(*cmd_dec);

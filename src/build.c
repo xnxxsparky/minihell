@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:11:59 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/03 22:56:02 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/04 23:41:21 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,12 @@ void	cmd_alloc(t_cmd **cmd_final, t_token *cmd)
 	{
 		cmd_alloc_while(cur, final, &i, &count);
 		if (cur->type == MST_PIPE && !final[i - 1].cmd)
-			return ;
+			return (free_cmd_dec(&final));
 		cur = cur->next;
 	}
 	final[i].cmd = ft_calloc(count + 2, sizeof(char *));
 	if (!final[i].cmd)
-		return ;
+		return (free_cmd_dec(&final));
 	*cmd_final = final;
 }
 

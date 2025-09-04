@@ -6,7 +6,7 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 02:10:28 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/09/02 19:19:59 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 01:23:45 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ t_env	**env_addedit(t_env **env, char *name, char *val)
 		{
 			if (ft_strcmp(tmp->name, name) == 0)
 			{
-				free(tmp->value);
+				if (tmp->value)
+					free(tmp->value);
 				tmp->value = ft_strdup(val);
 				return (env);
 			}
@@ -103,6 +104,8 @@ void	env_lstadd_back(t_env **env, t_env *line)
 {
 	t_env	*temp;
 
+	if (!line)
+		return ;
 	if (*env == NULL)
 		*env = line;
 	else

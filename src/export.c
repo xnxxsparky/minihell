@@ -6,7 +6,7 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 02:07:46 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/09/03 22:15:12 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 01:21:25 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	export_export(t_shell *shel, int index)
 		while (cur)
 		{
 			if (!cur->value)
-				ft_fprintf(1, "declare -x %s=\"\"\n", cur->name);
+				ft_fprintf(1, "declare -x %s\n", cur->name);
 			else
 				ft_fprintf(1, "declare -x %s=\"%s\"\n", cur->name, cur->value);
 			cur = cur->next;

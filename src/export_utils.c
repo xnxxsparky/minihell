@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 01:56:13 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/03 18:48:31 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 01:23:08 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static t_env	*env_lstnew_xprt(char *name, char *value)
 		free(ret);
 		return (NULL);
 	}
-	if (!value || !*value)
-		ret->value = "";
+	if (!value)
+		ret->value = NULL;
 	else
 	{
 		ret->value = ft_strdup(value);
@@ -77,8 +77,6 @@ t_env	**xprt_edit(t_env **env, char *name, char *val)
 		return (NULL);
 	if (*env)
 	{
-		if (!val)
-			val = "";
 		tmp = *env;
 		while (tmp)
 		{

@@ -6,11 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 02:11:49 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/08/14 18:49:09 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 00:43:24 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "includes/libft.h"
 #include "minihell.h"
+#include <unistd.h>
 
 void	ft_pwd(t_shell *shel, int index)
 {
@@ -19,6 +21,10 @@ void	ft_pwd(t_shell *shel, int index)
 	ft_bzero(buf, 4096);
 	(void)index;
 	(void)shel;
-	ft_fprintf(1, "%s\n", getcwd(buf, 4096));
+	if (getcwd(buf, 4096) != NULL)
+		ft_fprintf(1, "%s\n", buf);
+	else
+		ft_fprintf(1, "getcwd: cannot access parent directories: No such file"
+			" or directory\n");
 	shel->retcode = 0;
 }

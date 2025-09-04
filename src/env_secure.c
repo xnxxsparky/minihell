@@ -6,7 +6,7 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 03:32:19 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/09/02 19:17:53 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/04 23:01:33 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static char	*get_home(void)
 			return (path);
 		}
 		d = readdir(dir);
+		free(path);
 	}
 	closedir(dir);
 	return (NULL);
@@ -76,6 +77,7 @@ void	env_secure(t_env **newenv)
 	(*newenv) = env_instantiate(NULL);
 	home = get_home();
 	env_addedit(newenv, "HOME", home);
+	free(home);
 	env_addedit(newenv, "OLDPWD", get_pwd());
 	env_addedit(newenv, "PWD", get_pwd());
 	env_addedit(newenv, "SHLVL", "1");
