@@ -23,3 +23,23 @@ void	free_free(t_shell *shel)
 	free_tkn(&(shel->cmd));
 	free(shel->pids);
 }
+
+void	free_shel(t_shell *shel)
+{
+	free(shel->cmd_user);
+	free_tkn(&(shel->cmd));
+	if (shel->cmd_dec)
+		free_cmd_dec(&(shel->cmd_dec));
+}
+
+void	free_args(char *name, char *val, char *arg, char *other)
+{
+	if (name)
+		free(name);
+	if (val)
+		free(val);
+	if (arg)
+		free(arg);
+	if (other)
+		free(other);
+}

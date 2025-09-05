@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 03:04:29 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/05 09:11:14 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:12:44 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,6 @@ env_secure(t_env **newenv);
 void
 ft_cd(t_shell *shel, int index);
 
-//extender.c
-void
-extender(t_shell *shel);
-
 //signals.c
 void
 sig_handler_classic(void);
@@ -178,9 +174,6 @@ void
 env_join(char ***env_ar, t_env *env);
 
 void
-arg_cutter(char *arg, char ***cmd_dec);
-
-void
 replace(t_shell *shel, char *token, char **token_fill);
 
 int
@@ -211,9 +204,6 @@ void
 free_cmd_dec(t_cmd **cmd_dec);
 
 void
-print(t_token *cmd, char *c);
-
-void
 reset_state(void);
 
 void
@@ -227,6 +217,9 @@ redir_here_doc(t_cmd *cmd_final, t_token **cur, t_shell *shel);
 
 void
 free_free(t_shell *shel);
+
+void
+free_shel(t_shell *shel);
 
 void
 buid_t_cmd(t_shell *shel, t_cmd **cmd_dec);
@@ -299,6 +292,12 @@ setup_child(void);
 
 void
 wrt(char c, char d, char *line, int fd);
+
+void
+free_args(char *name, char *val, char *arg, char *other);
+
+t_token
+*cmd_init(char **delim);
 
 t_env	
 **xprt_edit(t_env **env, char *name, char *val, char *eq);

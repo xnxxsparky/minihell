@@ -71,7 +71,7 @@ int	apply_builtins(t_shell *shel, int index)
 	{"env", ft_env}, {"cd", ft_cd}, {"echo", ft_echo},
 	{0},
 	};
-	static int	arr[2] = {0};
+	static int	arr[2] = {0, 0};
 	int			i;
 	int			in;
 	int			out;
@@ -106,5 +106,6 @@ void	full_free(t_shell *shel, bool need_exit, int index)
 	free_free(shel);
 	if (need_exit)
 		exit(ex_cd);
+	close_all_fds();
 	exit(0);
 }

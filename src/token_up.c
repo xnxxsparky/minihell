@@ -6,25 +6,11 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 20:23:07 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/05 01:07:13 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:11:51 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minihell.h"
-
-// void	print(t_token *cmd, char *c)
-// {
-// 	t_token	*cur;
-// 
-// 	if (!cmd)
-// 		return ;
-// 	cur = cmd;
-// 	while (cur)
-// 	{
-// 		printf("%s%s\n%s", c, cur->token, RESET);
-// 		cur = cur->next;
-// 	}
-// }
 
 static t_token	*no_dol(t_token *del, t_token **cmd)
 {

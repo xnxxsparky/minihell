@@ -54,7 +54,7 @@ static void	keep_good_ones(char *token, char *ret, int *i, int *j)
 	}
 }
 
-void	moral_test(char **token)
+static void	no_len(char **token)
 {
 	free(*token);
 	errno = EINVAL;
@@ -72,7 +72,7 @@ static void	dead_quotes(char **token)
 	j = 0;
 	len = lenwoq(*token);
 	if (len == 0)
-		return (moral_test(token));
+		return (no_len(token));
 	ret = ft_calloc(len + 1, sizeof(char));
 	if (!ret)
 		return ;

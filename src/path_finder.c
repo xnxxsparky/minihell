@@ -74,4 +74,5 @@ void	parse(t_shell *shel, char *src, char **bin)
 		*bin = cmd;
 		return ;
 	}
+	*bin = NULL;
 }

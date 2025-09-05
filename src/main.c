@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 00:01:58 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/04 22:19:54 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:03:37 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	cmd_getter(t_shell *shel)
 	shel->cmd_user = readline(shel->prompt);
 	if (is_line_valid(shel, shel->cmd_user) == false)
 	{
-		ft_fprintf(2, "Just learn to use Minihell plz :p\n");
+		ft_fprintf(2, "Please, learn to close quotes\n");
 		return ;
 	}
 	handle_input(shel);
@@ -90,15 +90,13 @@ static void	cmd_getter(t_shell *shel)
 	if (!shel->cmd_dec || !shel->cmd_dec->cmd[0])
 	{
 		ret_code_errs_handle(shel);
-		free(shel->cmd_user);
-		free_tkn(&(shel->cmd));
+		free_shel(shel);
+		close_all_fds();
 		return ;
 	}
 	exec(shel);
-	free(shel->cmd_user);
+	free_shel(shel);
 	free(shel->prompt);
-	free_cmd_dec(&(shel->cmd_dec));
-	free_tkn(&(shel->cmd));
 	prompt_initializer(shel, &(shel->prompt));
 }
 
@@ -109,8 +107,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	if (argc > 1)
 	{
-		ft_fprintf(2, "Actually, minishell doesn't take arguments"
-			" MotherFucker\n");
+		ft_fprintf(2, "Actually, minishell doesn't take arguments\n");
 		return (21);
 	}
 	ft_fprintf(1, "\e[1;1H\e[2J");

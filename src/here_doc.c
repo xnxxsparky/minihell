@@ -6,10 +6,11 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 19:22:17 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/05 09:11:15 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:00:53 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lexer.h"
 #include "minihell.h"
 
 static bool	need_quotes_back(char *line)
@@ -24,13 +25,11 @@ static void	lim_handler(char **delim, char **lim, bool *xpd)
 
 	if (need_quotes_back(*delim))
 	{
-		cmd = &(t_token){.token = ft_strdup(*delim), .type = MST_WORD,
-			.expanded = 0, .next = NULL};
-		quotes_rm(&cmd);
+		cmd = cmd_init(delim);
 		if (!cmd)
 			return ;
-		*lim = ft_strjoin(cmd->token, "\n", false, false);
-		if (!(*lim))
+		quotes_rm(&cmd);
+		if (!cmd)
 			return ;
 		free(cmd->token);
 		free(*delim);
@@ -39,7 +38,7 @@ static void	lim_handler(char **delim, char **lim, bool *xpd)
 	}
 	else
 	{
-		*lim = ft_strjoin(*delim, "\n", false, false);
+		*lim = ft_strdup(*delim);
 		if (!(*lim))
 			return ;
 		*xpd = true;
@@ -106,7 +105,7 @@ int	fill_file(char **delim, int fd, t_shell *shel)
 		return (err);
 	while (lim && !err)
 	{
-		line = get_next_line(0);
+		line = readline("minihell_here_docs >");
 		err = err || line == NULL;
 		if (!line)
 			break ;

@@ -84,7 +84,10 @@ void	fill_token(char *cmd, t_token **fill)
 	{
 		new = tkn_new(lexer.token.str, lexer.token.len, token);
 		if (!new)
-			return (free_tkn(fill));
+		{
+			free_tkn(fill);
+			return ;
+		}
 		tkn_addback(fill, new);
 		token = next_token(&lexer);
 	}

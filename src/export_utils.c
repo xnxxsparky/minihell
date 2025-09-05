@@ -80,6 +80,25 @@ static t_env	*env_lstnew_xprt(char *name, char *value, char *eq)
 	return (ret);
 }
 
+static void	replace_xprt(t_env *tmp, char *val, char *eq)
+{
+	if (tmp->value)
+	{
+		free(tmp->value);
+		if (eq && ft_strlen(eq) > 1 && val)
+			tmp->value = ft_strdup(eq + 1);
+		else
+			tmp->value = ft_calloc(1, 1);
+	}
+	else if (!tmp->value)
+	{
+		if (val && eq)
+			tmp->value = ft_calloc(1, 1);
+		else
+			tmp->value = NULL;
+	}
+}
+
 t_env	**xprt_edit(t_env **env, char *name, char *val, char *eq)
 {
 	t_env	*tmp;
@@ -94,9 +113,7 @@ t_env	**xprt_edit(t_env **env, char *name, char *val, char *eq)
 		{
 			if (ft_strcmp(tmp->name, name) == 0)
 			{
-				if (tmp->value && *(tmp->value))
-					free(tmp->value);
-				tmp->value = ft_strdup(val);
+				replace_xprt(tmp, val, eq);
 				return (env);
 			}
 			tmp = tmp->next;

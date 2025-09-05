@@ -68,46 +68,19 @@ void	lexer_get_word(t_lexer *lexer)
 
 t_states	next_token(t_lexer *lexer)
 {
-	char	c;
+	char		c;
+	t_states	states;
 
 	skip_spaces(lexer);
 	c = lexer_get_char(lexer);
+	states = MST_EOF;
 	if (c == '<' || c == '>')
-		return (token_redir(lexer));
+		states = token_redir(lexer);
 	else if (c == '|')
-		return (token_pipe(lexer));
+		states = token_pipe(lexer);
 	else if (c == '$' && lexer->quote_state != SIMPLE_QUOTES)
-		return (token_expand(lexer));
+		states = token_expand(lexer);
 	else if (c)
-		return (token_word(lexer));
-	return (MST_EOF);
+		states = token_word(lexer);
+	return (states);
 }
-// 
-// static t_states	lexer_peek_token(t_lexer *lexer)
-// {
-// 	const char	*save;
-// 	t_states	token;
-// 
-// 	save = lexer->content;
-// 	token = next_token(lexer);
-// 	lexer->content = save;
-// 	return (token);
-// }
-// 
-// bool	token_error(t_lexer lexer, t_states token)
-// {
-// 	t_states	next;
-// 
-// 	if (token == MST_REDIR || token == MST_PIPE)
-// 	{
-// 		next = lexer_peek_token(&lexer);
-// 		if (next != MST_WORD)
-// 		{
-// 			next = next_token(&lexer);
-// 			ft_fprintf(2, "minihell : syntax error near unexpected token "
-// 				"'%.*s'\n", (int)lexer.token.len, lexer.token.str);
-// 			return (true);
-// 		}
-// 	}
-// 	return (false);
-// }

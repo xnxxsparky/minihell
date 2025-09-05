@@ -62,5 +62,6 @@ void	ft_exit(t_shell *shel, int index)
 	closed(shel, index);
 	free_free(shel);
 	rl_clear_history();
+	close_all_fds();
 	exit(ret);
 }

@@ -21,20 +21,22 @@ static void	add_to_env(t_shell *shel, char *arg, char *eq)
 	if (!name)
 		return ;
 	if (eq)
-		val = ft_strdup(eq + 1);
+	{
+		if (eq[0] == '=')
+			val = ft_calloc(1, 1);
+		else
+			val = ft_strdup(eq + 1);
+	}
 	else
 		val = NULL;
 	if (!val)
 	{
 		xprt_edit(&(shel->env), name, NULL, eq);
-		free(name);
-		free(arg);
+		free_args(name, arg, NULL, NULL);
 		return ;
 	}
 	xprt_edit(&(shel->env), name, val, eq);
-	free(name);
-	free(val);
-	free(arg);
+	free_args(name, arg, val, NULL);
 }
 
 static void	export_export(t_shell *shel, int index)

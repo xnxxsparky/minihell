@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:41:30 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 21:21:39 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:02:40 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	redir_here_doc(t_cmd *cmd_final, t_token **cur, t_shell *shel)
 	cmd_final->fd_in = open(cmd_final->name_fd_in,
 			O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (cmd_final->fd_in == -1)
-		ft_fprintf(2, "Wtf went wrong ?\n");
+		ft_fprintf(2, "This has failed ?\n");
 	if (fill_file(&((*cur)->next->token), cmd_final->fd_in, shel) == 1)
 	{
 		if (errno == EINTR)
@@ -63,12 +63,12 @@ void	redir_here_doc(t_cmd *cmd_final, t_token **cur, t_shell *shel)
 			cmd_final->fd_in = -2;
 			return ;
 		}
-		ft_fprintf(2, "\nminihell: warning: here-document at line"
+		ft_fprintf(2, "minihell: warning: here-document at line"
 			" delimited by end-of-file (wanted `%s')\n", (*cur)->next->token);
 	}
 	close(cmd_final->fd_in);
 	cmd_final->fd_in = open(cmd_final->name_fd_in, O_RDONLY);
 	if (cmd_final->fd_in == -1)
-		ft_fprintf(2, "Another HUN ?\n");
+		ft_fprintf(2, "How can this fail ?\n");
 	unlink(cmd_final->name_fd_in);
 }
