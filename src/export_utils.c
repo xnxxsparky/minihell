@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 01:56:13 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/05 01:23:08 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 04:36:30 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,20 @@ bool	valid_xprt_name(char *test)
 	return (true);
 }
 
-static t_env	*env_lstnew_xprt(char *name, char *value)
+static bool	if_value(t_env *ret, char *value)
+{
+	ret->value = ft_strdup(value);
+	if (!ret->value)
+	{
+		free(ret->name);
+		free(ret);
+		return (false);
+	}
+	ret->next = NULL;
+	return (true);
+}
+
+static t_env	*env_lstnew_xprt(char *name, char *value, char *eq)
 {
 	t_env	*ret;
 
@@ -53,22 +66,21 @@ static t_env	*env_lstnew_xprt(char *name, char *value)
 		return (NULL);
 	}
 	if (!value)
-		ret->value = NULL;
+	{
+		if (!eq)
+			ret->value = NULL;
+		else
+			ret->value = ft_calloc(1, 1);
+	}
 	else
 	{
-		ret->value = ft_strdup(value);
-		if (!ret->value)
-		{
-			free(ret->name);
-			free(ret);
+		if (!if_value(ret, value))
 			return (NULL);
-		}
-		ret->next = NULL;
 	}
 	return (ret);
 }
 
-t_env	**xprt_edit(t_env **env, char *name, char *val)
+t_env	**xprt_edit(t_env **env, char *name, char *val, char *eq)
 {
 	t_env	*tmp;
 	t_env	*newnode;
@@ -90,7 +102,7 @@ t_env	**xprt_edit(t_env **env, char *name, char *val)
 			tmp = tmp->next;
 		}
 	}
-	newnode = env_lstnew_xprt(name, val);
+	newnode = env_lstnew_xprt(name, val, eq);
 	env_lstadd_back(env, newnode);
 	return (env);
 }

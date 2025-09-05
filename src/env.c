@@ -28,9 +28,7 @@ void	ft_env(t_shell *shel, int index)
 	tmp = shel->env;
 	while (++i <= len)
 	{
-		if (!tmp->value)
-			ft_fprintf(1, "%s=\n", tmp->name);
-		else
+		if (tmp->value)
 			ft_fprintf(1, "%s=%s\n", tmp->name, tmp->value);
 		tmp = tmp->next;
 	}

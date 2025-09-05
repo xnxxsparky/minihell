@@ -6,7 +6,7 @@
 /*   By: ypoulett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 02:25:33 by ypoulett          #+#    #+#             */
-/*   Updated: 2025/09/03 21:35:48 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 05:56:53 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ static char	*path_creator(t_shell *shel, t_env *search, int index)
 	return (NULL);
 }
 
+void	errs_cd(t_shell *shel, char *token)
+{
+	ft_fprintf(2, "minihell: cd: %s: Not a directory\n", token);
+	shel->retcode = 1;
+}
+
 static void	tild_expander(t_shell *shel, int index)
 {
 	t_env	*search;
@@ -59,15 +65,12 @@ static void	tild_expander(t_shell *shel, int index)
 				shel->retcode = 0;
 				return ;
 			}
+			errs_cd(shel, final_path);
+			free(final_path);
+			return ;
 		}
 	}
 	ft_fprintf(2, "minihell: cd: HOME not set\n");
-	shel->retcode = 1;
-}
-
-void	errs_cd(t_shell *shel, char *token)
-{
-	ft_fprintf(2, "minihell: cd: %s: Not a directory\n", token);
 	shel->retcode = 1;
 }
 

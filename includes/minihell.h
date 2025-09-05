@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 03:04:29 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/05 01:23:14 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 09:11:14 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,7 +297,10 @@ fail_open(t_cmd *cmd_dec);
 void
 setup_child(void);
 
+void
+wrt(char c, char d, char *line, int fd);
+
 t_env	
-**xprt_edit(t_env **env, char *name, char *val);
+**xprt_edit(t_env **env, char *name, char *val, char *eq);
 
 #endif

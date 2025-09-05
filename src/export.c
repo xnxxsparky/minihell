@@ -26,12 +26,12 @@ static void	add_to_env(t_shell *shel, char *arg, char *eq)
 		val = NULL;
 	if (!val)
 	{
-		xprt_edit(&(shel->env), name, NULL);
+		xprt_edit(&(shel->env), name, NULL, eq);
 		free(name);
 		free(arg);
 		return ;
 	}
-	xprt_edit(&(shel->env), name, val);
+	xprt_edit(&(shel->env), name, val, eq);
 	free(name);
 	free(val);
 	free(arg);

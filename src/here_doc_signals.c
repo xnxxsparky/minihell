@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 22:09:31 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/02 19:31:01 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 09:11:15 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,14 @@ void	sig_handler_heredoc(void)
 	sigaction(SIGINT, &sa, NULL);
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
+}
+
+void	wrt(char c, char d, char *line, int fd)
+{
+	if (c)
+		write(fd, &c, 1);
+	write(fd, line, ft_strlen(line) - 1);
+	if (d)
+		write(fd, &d, 1);
+	write(fd, "\n", 1);
 }

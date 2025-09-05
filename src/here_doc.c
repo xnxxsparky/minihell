@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 19:22:17 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/09/03 21:48:40 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/09/05 09:11:15 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,40 +46,49 @@ static void	lim_handler(char **delim, char **lim, bool *xpd)
 	}
 }
 
-static void	wrt(char c, char *line, int fd)
+static char	*get_new(char *line, int len, char *c, char *d)
 {
-	if (c)
-		write(fd, &c, 1);
-	write(fd, line, ft_strlen(line) - 1);
-	if (c)
-		write(fd, &c, 1);
-	write(fd, "\n", 1);
+	char	*new;
+
+	if (*line == '\'' || *line == '"')
+		*c = *line;
+	if (line[len - 1] == '\'' || line[len - 1] == '"')
+		*d = line[len - 1];
+	if (*c)
+		len--;
+	if (*d)
+		len--;
+	if (*c)
+		new = ft_strndup(&line[1], len);
+	else
+		new = ft_strndup(line, len);
+	if (!new)
+		return (NULL);
+	return (new);
 }
 
 static void	wrt_in_fd(bool xpd, char *line, int fd, t_shell *shel)
 {
-	t_token	*cmd;
+	char	*new;
+	int		len;
 	char	c;
+	char	d;
 
 	c = '\0';
+	d = '\0';
+	len = ft_strlen(line);
 	if (!xpd)
 		write(fd, line, ft_strlen(line));
 	else
 	{
-		if (*line == '\'' || *line == '"')
-		{
-			c = *line;
-			cmd = &(t_token){.token = line, .type = MST_WORD,
-				.expanded = 0, .next = NULL};
-			quotes_rm(&cmd);
-			if (!cmd)
-				return ;
-			line = cmd->token;
-		}
-		replace(shel, line, &line);
-		if (!line)
+		new = get_new(line, len, &c, &d);
+		if (!new)
 			return ;
-		wrt(c, line, fd);
+		replace(shel, new, &new);
+		if (!new)
+			return ;
+		wrt(c, d, new, fd);
+		free(new);
 	}
 	free(line);
 }
